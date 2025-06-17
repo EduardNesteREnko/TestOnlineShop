@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stripe Checkout</title>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <button id="checkout-button">Buy for $50</button>
+
+  <script type="text/javascript">
+    const stripe = Stripe('{{ publishable_key }}');
+
+    document.getElementById("checkout-button").addEventListener("click", function () {
+      fetch("/create-checkout-session", { method: "POST" })
+        .then(response => response.json())
+        .then(session => {
+          return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(result => {
+          if (result.error) {
+            alert(result.error.message);
+          }
+        })
+        .catch(error => {
+          console.error("Ошибка:", error);
+        });
+    });
+  </script>
+</body>
+</html>
