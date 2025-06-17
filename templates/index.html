@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Online Shop</title>
+    <title>Online Shop</title>
 {% endblock title %}
 
 {% block body %}
@@ -15,8 +15,8 @@
                         <h4 class="my-0 fw-normal">{{ el.title }}</h4>
                     </div>
                     <div class="card-body">
-                        <h1 class="card-title pricing-card-title">{{ el.price }}
-                            <small class="text-body-secondary fw-light">$</small>
+                        <h1 class="card-title pricing-card-title">
+                            {{ el.price }} <small class="text-body-secondary fw-light">$</small>
                         </h1>
                         <ul class="list-unstyled mt-3 mb-4">
                             <li>10 users included</li>
@@ -24,7 +24,12 @@
                             <li>Email support</li>
                             <li>Help center access</li>
                         </ul>
-                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Buy now</button>
+                        <!-- Stripe оплата -->
+                        <form action="/buy/{{ el.id }}" method="POST">
+                            <button type="submit" class="w-100 btn btn-lg btn-outline-success">
+                                Купить через Stripe
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
